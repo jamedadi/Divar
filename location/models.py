@@ -43,7 +43,7 @@ class Location(models.Model):
     """
     province = models.ForeignKey(Province, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
-    distinct = models.ForeignKey(Distinct, on_delete=models.CASCADE, blank=True)
+    distinct = models.ForeignKey(Distinct, on_delete=models.CASCADE, blank=True, null=True)
     
     def __str__(self):
         return f"{self.distinct} < {self.city} < {self.province}"
