@@ -14,7 +14,7 @@ class Advertisement(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='advertisements')
     
     def __str__(self):
-        return f"{self.title} > {self.location.name}"
+        return f"{self.title} > {self.location.city.name}"
     
     class Meta:
         verbose_name = 'Advertisement'
