@@ -1,6 +1,6 @@
 from django.db import models
 
-from account.models import Profile
+from account.models import User
 from category.models import Category
 from location.models import Location
 
@@ -11,7 +11,7 @@ class Advertisement(models.Model):
     price = models.PositiveIntegerField(default=0)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='advertisements')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="advertisements")
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='advertisements')
+    profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
     
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"

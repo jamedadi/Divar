@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 
-from account.models import Profile
+from account.models import User
 
 
 class EditProfileForm(ModelForm):
     class Meta:
-        model = Profile
+        model = User
         fields = ['first_name', 'last_name', 'phone_number']
