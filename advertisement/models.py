@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 from account.models import User
@@ -19,3 +20,12 @@ class Advertisement(models.Model):
     class Meta:
         verbose_name = 'Advertisement'
         verbose_name_plural = "Advertisements"
+
+
+class Image(models.Model):
+    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
+    image_file = models.FileField(
+                                    upload_to='images/advertisement',
+                                    validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
+                                 )
+
