@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView
 
-from account.forms import EditProfileForm
+from account.forms import EditProfileForm, RegisterAccountForm
 from account.models import User
 
 
@@ -31,8 +31,11 @@ class EditProfileView(UpdateView):
         return self.request.user.profile
 
 
-    # def form_valid(self, form):
-        # instance = form.save(commit=False)
-        # instance.user = self.request.user
-        # instance.save()
-        # return super().form_valid(form)
+class RegisterView(FormView):
+    template_name = 'account/register.html'
+    form_class = RegisterAccountForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
