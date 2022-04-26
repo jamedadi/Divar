@@ -5,7 +5,8 @@ from .models import User
 
 @admin.register(User)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['email']
+
 
 
 
