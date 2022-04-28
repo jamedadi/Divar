@@ -1,10 +1,10 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView
 
-from account.forms import EditProfileForm, RegisterAccountForm
+from account.forms import EditProfileForm, RegisterAccountForm, LoginAccountForm
 from account.models import User
 
 
@@ -31,7 +31,7 @@ class EditProfileView(UpdateView):
         return self.request.user.profile
 
 
-class RegisterView(FormView):
+class RegisterUserView(FormView):
     template_name = 'account/register.html'
     form_class = RegisterAccountForm
     success_url = '/'
@@ -39,3 +39,15 @@ class RegisterView(FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class LoginUserView(FormView):
+    form_class = LoginAccountForm
+    template_name = 'account/login.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        login(self.request, form.cleaned_data['user'])
+        return super().form_valid(form)
+
+
