@@ -4,8 +4,10 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView
 
+
 from account.forms import EditProfileForm, RegisterAccountForm, LoginAccountForm
 from account.models import User
+from lib.username import generate_random_username
 
 
 @method_decorator(login_required, name='dispatch')
@@ -37,7 +39,12 @@ class RegisterUserView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        form.save()
+        """
+        To get user instance and assign a random username to username field of user
+        """
+        instance = form.save(commit=False)
+        instance.username = generate_random_username()
+        instance.save()
         return super().form_valid(form)
 
 

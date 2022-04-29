@@ -1,6 +1,7 @@
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django import forms
 from django.db.models import Q
+from django.contrib.auth.hashers import make_password, check_password
 
 User = get_user_model()
 
@@ -16,6 +17,10 @@ class RegisterAccountForm(forms.ModelForm):
         model = User
         fields = ['email', 'password']
 
+    def clean(self):
+        """To make a hashable password"""
+        self.cleaned_data['password'] = make_password(self.cleaned_data['password'])
+
 
 class LoginAccountForm(forms.Form):
     username_or_phone = forms.CharField()
@@ -28,7 +33,7 @@ class LoginAccountForm(forms.Form):
         if user is None:
             raise forms.ValidationError('email or phone number you entered is not correct')
 
-        if not user.password == self.cleaned_data['password']:
+        if not check_password(self.cleaned_data['password'], user.password):
             raise forms.ValidationError('password is wrong')
 
         self.cleaned_data['user'] = user
