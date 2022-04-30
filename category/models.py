@@ -1,7 +1,9 @@
 from django.db import models
 
+from lib.base_model import BaseModel
 
-class Category(models.Model):
+
+class Category(BaseModel):
     name = models.CharField(max_length=50)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     

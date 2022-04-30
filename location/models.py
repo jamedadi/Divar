@@ -1,7 +1,9 @@
 from django.db import models
 
+from lib.base_model import BaseModel
 
-class Province(models.Model):
+
+class Province(BaseModel):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, allow_unicode='True')
 
@@ -13,7 +15,7 @@ class Province(models.Model):
         verbose_name_plural = 'Provinces'
 
 
-class City(models.Model):
+class City(BaseModel):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, allow_unicode='True')
     state = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE)
@@ -26,7 +28,7 @@ class City(models.Model):
         verbose_name_plural = "Cities"
 
 
-class District(models.Model):
+class District(BaseModel):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, allow_unicode='True')
     city = models.ForeignKey(City, related_name='districts', on_delete=models.CASCADE)
@@ -39,7 +41,7 @@ class District(models.Model):
         verbose_name_plural = "Districts"
 
 
-class Location(models.Model):
+class Location(BaseModel):
     """
     This model represents location of published advertisement by User
     """

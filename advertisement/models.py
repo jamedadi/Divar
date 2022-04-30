@@ -3,10 +3,11 @@ from django.db import models
 
 from account.models import User
 from category.models import Category
+from lib.base_model import BaseModel
 from location.models import Location
 
 
-class Advertisement(models.Model):
+class Advertisement(BaseModel):
     """
     This class represents Advertisement model
     Each user can one or more advertisement to publish
@@ -26,7 +27,7 @@ class Advertisement(models.Model):
         verbose_name_plural = "Advertisements"
 
 
-class Image(models.Model):
+class Image(BaseModel):
     """
     This class represents Image model
     Each advertisement has one or many images
