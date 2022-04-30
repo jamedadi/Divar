@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class BaseModel(models):
+class BaseModel(models.Model):
     """
     A base model that other models inherit from it
     To add created_time and modified_time fields to them.
