@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator
 from django.db import models
 
-from account.models import User
 from category.models import Category
 from lib.base_model import BaseModel
 from location.models import Location
+
+User = get_user_model()
 
 
 class Advertisement(BaseModel):
@@ -17,7 +19,7 @@ class Advertisement(BaseModel):
     price = models.PositiveIntegerField(default=0)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='advertisements')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="advertisements")
-    profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
     
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"
