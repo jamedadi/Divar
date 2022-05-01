@@ -34,6 +34,7 @@ class AdvertisementImage(BaseModel):
     This class represents Image model.
     Each advertisement has one or many images.
     """
+    name = models.CharField()
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
     image_file = models.FileField(
                                     upload_to='images/advertisement/',
