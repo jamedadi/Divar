@@ -29,14 +29,14 @@ class Advertisement(BaseModel):
         verbose_name_plural = "Advertisements"
 
 
-class Image(BaseModel):
+class AdvertisementImage(BaseModel):
     """
-    This class represents Image model
-    Each advertisement has one or many images
+    This class represents Image model.
+    Each advertisement has one or many images.
     """
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
     image_file = models.FileField(
-                                    upload_to='images/advertisement',
+                                    upload_to='images/advertisement/',
                                     validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
     )
 
