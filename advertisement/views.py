@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from django.views.generic import FormView
 
-# Create your views here.
+from advertisement.forms import PostAdvertisementForm
+
+
+class PostAdvertisementView(FormView):
+    template_name = 'advertisement/post_advertisement.html'
+    form_class = PostAdvertisementForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        return super().form_valid(form)
