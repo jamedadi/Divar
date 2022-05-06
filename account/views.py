@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, FormView, UpdateView
 
 from account.forms import EditProfileForm, RegisterAccountForm, LoginAccountForm
 from account.models import User
-from lib.username import generate_random_username
+from lib.username import generate_random_string
 
 
 @method_decorator(login_required, name='dispatch')
@@ -43,7 +43,7 @@ class RegisterUserView(FormView):
         To get user instance and assign a random username to username field of user
         """
         instance = form.save(commit=False)
-        instance.username = generate_random_username()
+        instance.username = generate_random_string()
         instance.save()
         return super().form_valid(form)
 
