@@ -2,7 +2,6 @@ from django.views.generic import FormView
 
 from advertisement.forms import PostAdvertisementForm
 
-
 class PostAdvertisementView(FormView):
     template_name = 'advertisement/post_advertisement.html'
     form_class = PostAdvertisementForm
@@ -13,8 +12,9 @@ class PostAdvertisementView(FormView):
         """
         Get User from request
         """
-        instance = form.save(commit=False)
-        instance.user = self.request.user
-        instance.save()
+        user = self.request.user
+        form.cleaned_data['images'] = self.request.FILES.getlist('files')
+        # form.cleaned_data['user'] = user
+        form.save(user)
         return super().form_valid(form)
 
