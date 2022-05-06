@@ -2,7 +2,7 @@ import secrets
 import math
 
 
-def generate_random_username():
+def generate_random_string():
     """
     Create a random username
     """
