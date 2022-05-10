@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+{% block content %}
+
+    {% for cat in object_list %}
+
+        <ul>
+            {% if cat.parent is None %}
+                <li>{{ cat.name }}</li>
+
+                {% for child in cat.children.all %}
+                <ul>
+                    {{ child }}
+                </ul>
+                {% endfor %}
+
+            {% endif %}
+
+        </ul>
+    {% endfor %}
+
+{% endblock %}
+
+
+</body>
+</html>
