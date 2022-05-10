@@ -1,4 +1,4 @@
-from django.views.generic import FormView, DetailView
+from django.views.generic import FormView, DetailView, ListView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
@@ -26,3 +26,14 @@ class AdvertisementDetailView(DetailView):
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     return context
+
+
+class AdvertisementListView(ListView):
+    model = Advertisement
+    template_name = 'advertisement/advertisement_list.html'
+
+    def get_queryset(self):
+        city = self.kwargs['city']
+        queryset = super().get_queryset()
+        return queryset.filter(location__city__name=city)
+
