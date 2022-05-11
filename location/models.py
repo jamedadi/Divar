@@ -17,7 +17,7 @@ class Province(BaseModel):
 
 class City(BaseModel):
     name = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, allow_unicode='True')
+    slug = models.SlugField(max_length=50, allow_unicode='True', unique=True, blank=True)
     state = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE)
 
     def __str__(self):
