@@ -37,3 +37,13 @@ class AdvertisementListView(ListView):
         queryset = super().get_queryset()
         return queryset.filter(location__city__name=city)
 
+
+class AdvertisementCityCategoryListView(ListView):
+    model = Advertisement
+    template_name = 'advertisement/advertisement_list.html'
+
+    def get_queryset(self):
+        city = self.kwargs['city']
+        category = self.kwargs['category']
+        queryset = super().get_queryset()
+        return queryset.filter(location__city__slug=city, category__slug=category)
