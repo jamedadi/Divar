@@ -8,7 +8,7 @@
 <body>
 {% block content %}
     {% for adv in object_list %}
-        <h3>adv.title</h3>
+        <h3>{{ adv.title }}</h3>
         <img src="{{ adv.images.first.image_file.url }}">
     {% endfor %}
 {% endblock %}
