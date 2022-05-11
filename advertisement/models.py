@@ -44,6 +44,10 @@ class Advertisement(BaseModel):
             adv.images.create(name=generate_random_string(), image_file=file)
         adv.save()
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('advertisement-detail', args=[str(self.pk)])
+
 
 class AdvertisementImage(BaseModel):
     """
