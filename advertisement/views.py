@@ -15,17 +15,12 @@ class PostAdvertisementView(FormView):
         """
         user = self.request.user
         form.cleaned_data['images'] = self.request.FILES.getlist('files')
-        # form.cleaned_data['user'] = user
         form.save(user)
         return super().form_valid(form)
 
 
 class AdvertisementDetailView(DetailView):
     model = Advertisement
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
 
 
 class AdvertisementListView(ListView):
@@ -42,8 +37,13 @@ class AdvertisementCityCategoryListView(ListView):
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['city'] = self.request.path_info.split('/')[2]
+        return context
+
     def get_queryset(self):
-        city = self.kwargs['city']
-        category = self.kwargs['category']
+        city = self.kwargs.get('city')
+        category = self.kwargs.get('category')
         queryset = super().get_queryset()
         return queryset.filter(location__city__slug=city, category__slug=category)

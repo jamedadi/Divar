@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% load categories_list %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +6,21 @@
     <title></title>
 </head>
 <body>
+{{ city }}
+<br>
+{{ request.path_info }}
+    {% all_categories as categories %}
 
-{% block content %}
-
-    {% for cat in object_list %}
+    {% for cat in categories %}
 
         <ul>
             {% if cat.parent is None %}
-                <li>{{ cat.name }}</li>
+                {% if city is None %}
+                <li><a href="{% url 'advertisement-list-city-category' city='andimeshk' category=cat.slug %}"> {{ cat.name }} </a></li>
+                    {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
 
+                {% endif %}
                 {% for child in cat.children.all %}
                 <ul>
                     {{ child }}
@@ -26,7 +32,6 @@
         </ul>
     {% endfor %}
 
-{% endblock %}
 
 
 </body>
