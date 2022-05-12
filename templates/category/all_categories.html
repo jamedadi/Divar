@@ -8,7 +8,7 @@
 <body>
 {{ city }}
 <br>
-{{ request.path_info }}
+    {{ request.path_info }}
     {% all_categories as categories %}
 
     {% for cat in categories %}
@@ -16,14 +16,19 @@
         <ul>
             {% if cat.parent is None %}
                 {% if city is None %}
-                <li><a href="{% url 'advertisement-list-city-category' city='andimeshk' category=cat.slug %}"> {{ cat.name }} </a></li>
+                <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
                     {% else %}
                     <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
 
                 {% endif %}
                 {% for child in cat.children.all %}
                 <ul>
-                    {{ child }}
+                    {% if city is None %}
+                <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                    {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+
+                {% endif %}
                 </ul>
                 {% endfor %}
 

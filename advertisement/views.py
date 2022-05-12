@@ -2,6 +2,7 @@ from django.views.generic import FormView, DetailView, ListView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
+from .filters import AdvertisementFilter
 
 
 class PostAdvertisementView(FormView):
@@ -21,29 +22,40 @@ class PostAdvertisementView(FormView):
 
 class AdvertisementDetailView(DetailView):
     model = Advertisement
+    template_name = 'advertisement/advertisement_detail.html'
 
 
-class AdvertisementListView(ListView):
+class AdvertisementCityListView(ListView):
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
 
     def get_queryset(self):
-        city = self.kwargs['city']
-        queryset = super().get_queryset()
-        return queryset.filter(location__city__name=city)
+        city = self.kwargs.get('city')
+        queryset = Advertisement.objects.filter(location__city__slug=city)
+        filter = AdvertisementFilter(self.request.GET, queryset=queryset)
+        return filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['city'] = self.request.path_info.split('/')[3]
+        context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class AdvertisementCityCategoryListView(ListView):
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['city'] = self.request.path_info.split('/')[2]
-        return context
-
     def get_queryset(self):
         city = self.kwargs.get('city')
         category = self.kwargs.get('category')
-        queryset = super().get_queryset()
-        return queryset.filter(location__city__slug=city, category__slug=category)
+        queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
+        filter = AdvertisementFilter(self.request.GET, queryset=queryset)
+        return filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['city'] = self.request.path_info.split('/')[3]
+        context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+

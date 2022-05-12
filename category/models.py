@@ -11,10 +11,6 @@ class Category(BaseModel):
     def __str__(self):
         return f"{self.name}"
 
-    # def get_absolute_url(self):
-    #     from django.urls import reverse
-    #     return reverse('advertisement-list-city-category', args=[str(self.slug)])
-
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = "Categories"

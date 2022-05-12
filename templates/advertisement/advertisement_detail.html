@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'base.html' %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,6 @@
     <p>price : {{ object.description }}</p>
     <p>location : {{ object.location.city }}</p>
     <p>category: {{ object.category }}</p>
-
     <p>contact : {{ object.user.phone_number }}</p>
 
     {% for img in object.images.all %}
