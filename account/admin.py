@@ -1,11 +1,12 @@
 from codecs import register
 from django.contrib import admin
-from .models import Profile
+from .models import User
 
 
-@admin.register(Profile)
+@admin.register(User)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['email']
+
 
 
 

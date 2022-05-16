@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% block content %}
+
+
+    {% for adv in object_list %}
+
+        <div>
+            <h3><a href="{{ adv.get_absolute_url }}">{{ adv.title }}</a></h3>
+        </div>
+
+        <img src="{{ adv.images.first.image_file.url }}">
+    {% endfor %}
+
+{% endblock %}
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+       {{ profile.full_name }}'s Profile
+    {% endblock %}</title>
+</head>
+<body>
+
+{% block content %}
+    <p>{{ profile.phone_number }}</p>
+    <br>
+    <p>{{ profile.full_name }}</p>
+    <br>
+    <p>{{ profile.email }}</p>
+    <a href="{% url 'edit-profile' %}">edit profile</a>
+
+        <h2>Posted Advertisements</h2>
+        {% for adv in profile.advertisements.all %}
+            <h3>{{ adv.title }}
+            <p>{{ adv.description }}</p>
+            <p>{{ adv.location }}</p>
+            <br>
+            <br>
+        {% endfor %}
+
+
+{% endblock %}
+
+</body>
+</html>

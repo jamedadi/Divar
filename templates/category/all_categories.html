@@ -1,0 +1,43 @@
+{% load categories_list %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{{ city }}
+<br>
+    {{ request.path_info }}
+    {% all_categories as categories %}
+
+    {% for cat in categories %}
+
+        <ul>
+            {% if cat.parent is None %}
+                {% if city is None %}
+                <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
+                    {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
+
+                {% endif %}
+                {% for child in cat.children.all %}
+                <ul>
+                    {% if city is None %}
+                <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                    {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+
+                {% endif %}
+                </ul>
+                {% endfor %}
+
+            {% endif %}
+
+        </ul>
+    {% endfor %}
+
+
+
+</body>
+</html>
