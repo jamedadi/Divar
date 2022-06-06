@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'location',
     'financial',
     'package',
+    'purchase',
     # The packages installed
     'django_filters',
 ]
