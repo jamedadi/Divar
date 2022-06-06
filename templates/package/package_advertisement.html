@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>Title : {{ advertisement.title }}</h3>
+    <h4>Package : {{ package.title }}</h4>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Buy Package</button>
+    </form>
+
+</body>
+</html>
