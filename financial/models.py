@@ -5,6 +5,7 @@ from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
 
+
 user = get_user_model()
 
 class Gateway(models.Model):
@@ -21,6 +22,9 @@ class Gateway(models.Model):
     gateway_code = models.CharField(max_length=12, verbose_name=_('gateway code'), choices=GATEWAY_FUNCTION)
     is_enable = models.BooleanField(verbose_name=_('is enable'), default=True)
     auth_data = models.TextField(verbose_name=_('auth data'), null=True, blank=True)
+
+    created_time = models.DateTimeField(auto_now_add=True)
+    modified_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _('Gateway')
@@ -39,6 +43,9 @@ class Payment(models.Model):
     payment_log = models.TextField(verbose_name=_('log'), blank=True)
     user = models.ForeignKey(user, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL, null=True)
     authority = models.CharField(max_length=64, verbose_name=_('authority'), blank=True)
+
+    created_time = models.DateTimeField(auto_now_add=True)
+    modified_time = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _('Payment')

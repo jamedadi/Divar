@@ -1,7 +1,10 @@
+from django.shortcuts import render
+from django.views import View
 from django.views.generic import FormView, DetailView, ListView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
+from package.models import Package
 from .filters import AdvertisementFilter
 
 
@@ -20,10 +23,13 @@ class PostAdvertisementView(FormView):
         return super().form_valid(form)
 
 
-class AdvertisementDetailView(DetailView):
-    model = Advertisement
+class AdvertisementDetailView(View):
     template_name = 'advertisement/advertisement_detail.html'
 
+    def get(self, request, *args, **kwargs):
+        advertisement = Advertisement.objects.get(pk=kwargs['pk'])
+        packages = Package.objects.filter(is_enable=True)
+        return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
 class AdvertisementCityListView(ListView):
     model = Advertisement

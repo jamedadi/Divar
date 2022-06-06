@@ -8,14 +8,21 @@
 <body>
 {% block content %}
 
-    <h2>{{ object.title }}</h2>
-    <h4>{{ object.description }}</h4>
-    <p>price : {{ object.description }}</p>
-    <p>location : {{ object.location.city }}</p>
-    <p>category: {{ object.category }}</p>
-    <p>contact : {{ object.user.phone_number }}</p>
+    {% if advertisement.user == request.user %}
+        <a href="" style="color: orangered">Promote this advertismenet</a>
+        {% for package in packages %}
+            <a href="{% url 'package-detail' package.pk advertisement.pk %}">{{ package.title }}</a>
+        {% endfor %}
+    {% endif %}
 
-    {% for img in object.images.all %}
+    <h2>{{ advertisement.title }}</h2>
+    <h4>{{ advertisement.description }}</h4>
+    <p>price : {{ advertisement.description }}</p>
+    <p>location : {{ advertisement.location.city }}</p>
+    <p>category: {{ advertisement.category }}</p>
+    <p>contact : {{ advertisement.user.phone_number }}</p>
+
+    {% for img in advertisement.images.all %}
         <img src="{{ img.image_file.url }}">
     {% endfor %}
 
