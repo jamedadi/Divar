@@ -38,7 +38,9 @@ class Payment(models.Model):
 
     invoice_number = models.UUIDField(max_length=150, verbose_name=_('invoice number'), default=uuid.uuid4())
     amount = models.IntegerField(verbose_name=_('amount'))
-    gateway = models.ForeignKey(Gateway,related_name='payments', verbose_name=_('gateway'), on_delete=models.CASCADE)
+    gateway = models.ForeignKey(
+        Gateway,related_name='payments', verbose_name=_('gateway'), on_delete=models.CASCADE, null=True
+    )
     is_paid = models.BooleanField(verbose_name=_('is paid'), default=False)
     payment_log = models.TextField(verbose_name=_('log'), blank=True)
     user = models.ForeignKey(user, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL, null=True)
