@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render
 from django.views import View
@@ -8,7 +9,7 @@ from package.models import Package
 from purchase.models import Purchase
 
 
-class PackageView(View):
+class PackageView(LoginRequiredMixin, View):
     template_name = 'package/package_advertisement.html'
 
     def get(self, request, package_pk, advertisement_pk):
