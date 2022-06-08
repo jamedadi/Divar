@@ -10,17 +10,24 @@ from purchase.models import Purchase
 
 
 class PurchaseCreateView(LoginRequiredMixin ,View):
-    template_name = 'purchase/purchase_create.html'
+    template_name = 'purchase/create.html'
 
     def get(self, request, package_pk, advertisement_pk):
+        if not Advertisement.adv_is_belong_user(request.user, advertisement_pk):
+            raise Http404
+
         try:
             package = Package.objects.get(pk=package_pk)
         except Package.DoesNotExist:
             raise Http404
 
-        advertisement = Advertisement.objects.get(pk=advertisement_pk)
-        package = Package.objects.get(pk=package_pk)
+        try:
+            dvertisement = Advertisement.objects.get(pk=advertisement_pk)
+        except Advertisement.DoesNotExist:
+            raise Http404
 
+        advertisement = Advertisement.objects.get(pk=advertisement_pk)
         purchase = Purchase.create(package=package, user=request.user, advertisement=advertisement)
+
         return render(request, self.template_name , {'purchase': purchase})
 
