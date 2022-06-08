@@ -13,7 +13,7 @@ class PurchaseCreateView(LoginRequiredMixin ,View):
     template_name = 'purchase/create.html'
 
     def get(self, request, package_pk, advertisement_pk):
-        if not Advertisement.adv_is_belong_user(request.user, advertisement_pk):
+        if not Advertisement.is_belong_user(request.user, advertisement_pk):
             raise Http404
 
         try:
