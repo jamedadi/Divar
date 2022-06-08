@@ -5,8 +5,10 @@ from django.db import models
 
 from django.utils.translation import ugettext_lazy as _
 
+from financial.utils.zarinpal import zarinpal_request_handler, zarinpal_payment_checker
 
 user = get_user_model()
+
 
 class Gateway(models.Model):
 
@@ -33,6 +35,18 @@ class Gateway(models.Model):
     def __str__(self):
         return self.title
 
+    def get_request_handler(self):
+        handlers = {
+            self.FUNCTION_ZARINPAL: zarinpal_request_handler
+        }
+        return handlers[self.gateway_code]
+
+    def get_verify_handler(self):
+        handlers = {
+            self.FUNCTION_ZARINPAL: zarinpal_payment_checker
+        }
+        return handlers[self.gateway_code]
+
 
 class Payment(models.Model):
 
@@ -56,3 +70,10 @@ class Payment(models.Model):
     def __str__(self):
         return self.invoice_number.hex
 
+    def get_data(self):
+        data = dict(merchant_id=self.gateway.auth_data,
+                    amount=self.amount,
+                    detail='No detail',
+                    user_email=self.user.email,
+                    user_phone_number=self.user.phone_number, callback='http://127.0.0.1:8000/financial/verify')
+        return data

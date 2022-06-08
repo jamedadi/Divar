@@ -1,8 +1,11 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.views import View
 
 from advertisement.models import Advertisement
+from financial.models import Payment
 from package.models import Package
+from purchase.models import Purchase
 
 
 class PackageView(View):
@@ -13,7 +16,3 @@ class PackageView(View):
         advertisement = Advertisement.objects.get(pk=advertisement_pk)
         return render(request, self.template_name, {'package': package, 'advertisement': advertisement})
 
-    def post(self, request, package_pk, advertisement_pk):
-        # purchase = Purchase.create(package, request.user)
-        # return render(request, 'purchase/purchase_detail.html', context={})
-        pass
