@@ -9,7 +9,7 @@ from package.models import Package
 from purchase.models import Purchase
 
 
-class PurchaseCreateView(LoginRequiredMixin ,View):
+class PurchaseCreateView(LoginRequiredMixin,View):
     template_name = 'purchase/create.html'
 
     def get(self, request, package_pk, advertisement_pk):
@@ -27,6 +27,6 @@ class PurchaseCreateView(LoginRequiredMixin ,View):
             raise Http404
 
         purchase = Purchase.create(package=package, user=request.user, advertisement=advertisement)
-
         return render(request, self.template_name , {'purchase': purchase})
+
 
