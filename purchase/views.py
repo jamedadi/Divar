@@ -22,11 +22,10 @@ class PurchaseCreateView(LoginRequiredMixin ,View):
             raise Http404
 
         try:
-            dvertisement = Advertisement.objects.get(pk=advertisement_pk)
+            advertisement = Advertisement.objects.get(pk=advertisement_pk)
         except Advertisement.DoesNotExist:
             raise Http404
 
-        advertisement = Advertisement.objects.get(pk=advertisement_pk)
         purchase = Purchase.create(package=package, user=request.user, advertisement=advertisement)
 
         return render(request, self.template_name , {'purchase': purchase})
