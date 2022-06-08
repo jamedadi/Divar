@@ -6,9 +6,7 @@ from django.views import View
 from financial.models import Payment, Gateway
 
 
-
-
-class PaymentView(LoginRequiredMixin ,View):
+class PaymentView(LoginRequiredMixin, View):
 
     def get(self, request, invoice_number, *args, **kwargs):
         try:
@@ -19,7 +17,7 @@ class PaymentView(LoginRequiredMixin ,View):
         return render(request, 'financial/payment_detail.html', context={'payment': payment, 'gateways': gateways})
 
 
-class PaymentGatewayView(LoginRequiredMixin ,View):
+class PaymentGatewayView(LoginRequiredMixin, View):
 
     def get(self, request, invoice_number, gateway_code, *args, **kwargs):
         try:
