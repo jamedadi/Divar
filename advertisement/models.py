@@ -48,6 +48,12 @@ class Advertisement(BaseModel):
         from django.urls import reverse
         return reverse('advertisement-detail', args=[str(self.pk)])
 
+    @classmethod
+    def is_belong_user(cls, user, advertisement_pk):
+        advertisement = cls.objects.get(pk=advertisement_pk)
+        return user == advertisement.user
+
+
 
 class AdvertisementImage(BaseModel):
     """
