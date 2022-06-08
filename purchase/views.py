@@ -10,6 +10,7 @@ from purchase.models import Purchase
 
 
 class PurchaseCreateView(LoginRequiredMixin ,View):
+    template_name = 'purchase/purchase_create.html'
 
     def get(self, request, package_pk, advertisement_pk):
         try:
@@ -21,5 +22,5 @@ class PurchaseCreateView(LoginRequiredMixin ,View):
         package = Package.objects.get(pk=package_pk)
 
         purchase = Purchase.create(package=package, user=request.user, advertisement=advertisement)
-        return render(request, 'purchase/create.html', {'purchase': purchase})
+        return render(request, self.template_name , {'purchase': purchase})
 
