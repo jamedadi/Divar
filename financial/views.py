@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views import View
@@ -5,7 +6,7 @@ from django.views import View
 from financial.models import Payment, Gateway
 
 
-class PaymentView(View):
+class PaymentView(LoginRequiredMixin, View):
 
     def get(self, request, invoice_number, *args, **kwargs):
         try:
@@ -16,7 +17,7 @@ class PaymentView(View):
         return render(request, 'financial/payment_detail.html', context={'payment': payment, 'gateways': gateways})
 
 
-class PaymentGatewayView(View):
+class PaymentGatewayView(LoginRequiredMixin, View):
 
     def get(self, request, invoice_number, gateway_code, *args, **kwargs):
         try:
@@ -39,7 +40,7 @@ class PaymentGatewayView(View):
         return redirect(result)
 
 
-class PaymentVerifyView(View):
+class PaymentVerifyView(LoginRequiredMixin, View):
     template_name = 'financial/callback.html'
 
     def get(self, request, *args, **kwargs):
