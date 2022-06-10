@@ -12,6 +12,9 @@ from lib.username import generate_random_string
 
 @method_decorator(login_required, name='dispatch')
 class ProfileView(TemplateView):
+    """
+    Show user profile and all advertisements posted by user
+    """
     model = User
     template_name = 'account/profile.html'
 
@@ -22,6 +25,9 @@ class ProfileView(TemplateView):
 
 
 class EditProfileView(UpdateView):
+    """
+    Edit user profile
+    """
     model = User
     form_class = EditProfileForm
     template_name = 'account/edit_profile.html'
@@ -33,6 +39,9 @@ class EditProfileView(UpdateView):
 
 
 class RegisterUserView(FormView):
+    """
+    Register new user by email or phone number
+    """
     template_name = 'account/register.html'
     form_class = RegisterAccountForm
     success_url = '/'
@@ -48,6 +57,9 @@ class RegisterUserView(FormView):
 
 
 class LoginUserView(FormView):
+    """
+    Login View to sign-in user by Email or Phone number
+    """
     form_class = LoginAccountForm
     template_name = 'account/login.html'
     success_url = '/'
