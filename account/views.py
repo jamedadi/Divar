@@ -35,7 +35,7 @@ class EditProfileView(UpdateView):
     slug_field = "phone_number"
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        return self.request.user
 
 
 class RegisterUserView(FormView):

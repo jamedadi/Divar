@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {{ payment.invocei_number }}
+
+    {% for gateway in gateways %}
+        <a href="{% url 'payment-gateway' payment.invoice_number gateway.gateway_code%}">{{ gateway.title }}</a>
+    {% endfor %}
+</body>
+</html>
