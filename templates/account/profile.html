@@ -5,28 +5,26 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}
-       {{ profile.full_name }}'s Profile
+       {{ user.full_name }}'s Profile
     {% endblock %}</title>
 </head>
 <body>
 
-    <p>{{ profile.phone_number }}</p>
+    <p>{{ user.phone_number }}</p>
     <br>
-    <p>{{ profile.full_name }}</p>
+    <p>{{ user.full_name }}</p>
     <br>
-    <p>{{ profile.email }}</p>
+    <p>{{ user.email }}</p>
     <a href="{% url 'edit-profile' %}">edit profile</a>
 
         <h2>Posted Advertisements</h2>
-        {% for adv in profile.advertisements.all %}
-            <h3>{{ adv.title }}
+        {% for adv in user.advertisements.all %}
+            <h3>{{ adv.title }}</h3>
             <p>{{ adv.description }}</p>
             <p>{{ adv.location }}</p>
             <br>
             <br>
         {% endfor %}
-
-
 
 </body>
 </html>

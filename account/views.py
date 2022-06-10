@@ -17,8 +17,7 @@ class ProfileView(TemplateView):
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
-        user = self.request.user
-        context['profile'] = User.objects.filter(user=user).first()
+        context['user'] = self.request.user
         return context
 
 
