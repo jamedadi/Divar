@@ -6,6 +6,9 @@ from location.models import Location
 
 
 class PostAdvertisementForm(forms.Form):
+    """
+    Get advertisement data from user
+    """
     title = forms.CharField()
     description = forms.CharField(widget=forms.Textarea)
     price = forms.IntegerField()
@@ -13,6 +16,9 @@ class PostAdvertisementForm(forms.Form):
     category = forms.ModelChoiceField(queryset=Category.objects.all())
 
     def save(self, user):
+        """
+        A method to get data from form and save it into database
+        """
         self.cleaned_data['user'] = user
         Advertisement.add(
             user=user,
