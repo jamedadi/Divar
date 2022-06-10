@@ -9,6 +9,9 @@ from .filters import AdvertisementFilter
 
 
 class PostAdvertisementView(FormView):
+    """
+    Get form from PostAdvertisementForm
+    """
     template_name = 'advertisement/post_advertisement.html'
     form_class = PostAdvertisementForm
     success_url = '/'
@@ -22,8 +25,12 @@ class PostAdvertisementView(FormView):
         form.save(user)
         return super().form_valid(form)
 
-
-class AdvertisementDetailView(View):
+      
+class AdvertisementDetailView(DetailView):
+    """
+    Get advertisement detail from Advertisement model
+    """
+    model = Advertisement
     template_name = 'advertisement/advertisement_detail.html'
 
     def get(self, request, *args, **kwargs):
@@ -32,6 +39,9 @@ class AdvertisementDetailView(View):
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
 class AdvertisementCityListView(ListView):
+    """
+    Get advertisement by cities from Advertisement model
+    """
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
 
@@ -43,12 +53,16 @@ class AdvertisementCityListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # parse url to get city
         context['city'] = self.request.path_info.split('/')[3]
         context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 
 class AdvertisementCityCategoryListView(ListView):
+    """
+    Get advertisement by cities and categories from Advertisement model
+    """
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
 
@@ -61,6 +75,7 @@ class AdvertisementCityCategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # parse url to get city
         context['city'] = self.request.path_info.split('/')[3]
         context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
         return context
