@@ -7,12 +7,13 @@ from lib.base_model import BaseModel
 from lib.username import generate_random_string
 from location.models import Location
 
+# To get user from settings
 User = get_user_model()
 
 
 class Advertisement(BaseModel):
     """
-    This class represents Advertisement model
+    This class represents Advertisement model.
     Each user can one or more advertisement to publish
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
@@ -67,6 +68,9 @@ class Attribute(models.Model):
 
 
 class AdvAttrValue(models.Model):
+    """
+    Each advertisement has one or many attributes. This model handling it.
+    """
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='attributes')
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='attributes')
     value = models.CharField(max_length=50)
