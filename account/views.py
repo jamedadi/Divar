@@ -11,7 +11,7 @@ from lib.username import generate_random_string
 
 
 @method_decorator(login_required, name='dispatch')
-class ShowProfileView(TemplateView):
+class ProfileView(TemplateView):
     model = User
     template_name = 'account/profile.html'
 
