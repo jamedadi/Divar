@@ -11,10 +11,6 @@ class PostAdvertisementForm(forms.Form):
     price = forms.IntegerField()
     location = forms.ModelChoiceField(queryset=Location.objects.all())
     category = forms.ModelChoiceField(queryset=Category.objects.all())
-    # images = forms.FileField()
-
-    # def image_clean(self):
-    #     self.cleaned_data['images'].__dict__['name'] = self.cleaned_data.['images']
 
     def save(self, user):
         self.cleaned_data['user'] = user
