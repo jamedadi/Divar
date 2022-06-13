@@ -7,7 +7,7 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  test-and-lint:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
