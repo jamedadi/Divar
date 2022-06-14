@@ -1,11 +1,11 @@
 [tool.black]
-max-line-length = 80
+max-line-length = 120
 target-version = ['py39', 'py310']
 #include = '\.pyi?$'
 extend-exclude = '''
 ^/.*/migrations
 ^/.*/.ipynb_checkpoints
-^/divar/settings
+^/divar
 ^/src
 ^/venv
 ^/env

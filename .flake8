@@ -1,5 +1,15 @@
 [flake8]
-ignore = W291
-exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,migrations
-max-complexity = 10
-max-line-length = 80
+max-line-length = 120
+exclude =
+    */migrations/*,
+    */.ipynb_checkpoints/*
+    reval/settings/*.py,
+    reval/base_staticfiles,
+    */__init__.py
+    */apps.py
+    src/*
+    venv/*
+    env/*
+ignore =
+    E203
+    W503
