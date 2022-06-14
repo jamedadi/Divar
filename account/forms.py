@@ -9,17 +9,17 @@ User = get_user_model()
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone_number']
+        fields = ["first_name", "last_name", "phone_number"]
 
 
 class RegisterAccountForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email', 'password']
+        fields = ["email", "password"]
 
     def clean(self):
         """To make a hashable password"""
-        self.cleaned_data['password'] = make_password(self.cleaned_data['password'])
+        self.cleaned_data["password"] = make_password(self.cleaned_data["password"])
 
 
 class LoginAccountForm(forms.Form):
@@ -28,16 +28,16 @@ class LoginAccountForm(forms.Form):
 
     def clean(self):
         user = User.objects.filter(
-            Q(phone_number=self.cleaned_data['username_or_phone']) | Q(email=self.cleaned_data['username_or_phone'])
+            Q(phone_number=self.cleaned_data["username_or_phone"])
+            | Q(email=self.cleaned_data["username_or_phone"])
         ).first()
         if user is None:
-            raise forms.ValidationError('email or phone number you entered is not correct')
+            raise forms.ValidationError(
+                "email or phone number you entered is not correct"
+            )
 
-        if not check_password(self.cleaned_data['password'], user.password):
-            raise forms.ValidationError('password is wrong')
+        if not check_password(self.cleaned_data["password"], user.password):
+            raise forms.ValidationError("password is wrong")
 
-        self.cleaned_data['user'] = user
+        self.cleaned_data["user"] = user
         return self.cleaned_data
-
-
-

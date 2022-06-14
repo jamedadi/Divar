@@ -8,63 +8,124 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='City',
+            name="City",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('slug', models.SlugField(allow_unicode='True')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("slug", models.SlugField(allow_unicode="True")),
             ],
             options={
-                'verbose_name': 'City',
-                'verbose_name_plural': 'Cities',
+                "verbose_name": "City",
+                "verbose_name_plural": "Cities",
             },
         ),
         migrations.CreateModel(
-            name='District',
+            name="District",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('slug', models.SlugField(allow_unicode='True')),
-                ('city', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='districts', to='location.city')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("slug", models.SlugField(allow_unicode="True")),
+                (
+                    "city",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="districts",
+                        to="location.city",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'District',
-                'verbose_name_plural': 'Districts',
+                "verbose_name": "District",
+                "verbose_name_plural": "Districts",
             },
         ),
         migrations.CreateModel(
-            name='Province',
+            name="Province",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
-                ('slug', models.SlugField(allow_unicode='True')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("slug", models.SlugField(allow_unicode="True")),
             ],
             options={
-                'verbose_name': 'Province',
-                'verbose_name_plural': 'Provinces',
+                "verbose_name": "Province",
+                "verbose_name_plural": "Provinces",
             },
         ),
         migrations.CreateModel(
-            name='Location',
+            name="Location",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('city', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='location.city')),
-                ('district', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='location.district')),
-                ('province', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='location.province')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "city",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="location.city"
+                    ),
+                ),
+                (
+                    "district",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="location.district",
+                    ),
+                ),
+                (
+                    "province",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="location.province",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Location',
-                'verbose_name_plural': 'Locations',
+                "verbose_name": "Location",
+                "verbose_name_plural": "Locations",
             },
         ),
         migrations.AddField(
-            model_name='city',
-            name='state',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cities', to='location.province'),
+            model_name="city",
+            name="state",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="cities",
+                to="location.province",
+            ),
         ),
     ]

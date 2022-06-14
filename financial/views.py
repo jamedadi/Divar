@@ -7,18 +7,20 @@ from financial.models import Payment, Gateway
 
 
 class PaymentView(LoginRequiredMixin, View):
-
     def get(self, request, invoice_number, *args, **kwargs):
         try:
             payment = Payment.objects.get(invoice_number=invoice_number)
         except Payment.DoesNotExist:
             raise Http404
         gateways = Gateway.objects.filter(is_enable=True)
-        return render(request, 'financial/payment_detail.html', context={'payment': payment, 'gateways': gateways})
+        return render(
+            request,
+            "financial/payment_detail.html",
+            context={"payment": payment, "gateways": gateways},
+        )
 
 
 class PaymentGatewayView(LoginRequiredMixin, View):
-
     def get(self, request, invoice_number, gateway_code, *args, **kwargs):
         try:
             payment = Payment.objects.get(invoice_number=invoice_number)
@@ -41,10 +43,10 @@ class PaymentGatewayView(LoginRequiredMixin, View):
 
 
 class PaymentVerifyView(LoginRequiredMixin, View):
-    template_name = 'financial/callback.html'
+    template_name = "financial/callback.html"
 
     def get(self, request, *args, **kwargs):
-        authority = request.GET.get('Authority')
+        authority = request.GET.get("Authority")
         try:
             payment = Payment.objects.get(authority=authority)
         except Payment.DoesNotExist:
@@ -52,7 +54,11 @@ class PaymentVerifyView(LoginRequiredMixin, View):
 
         request_handler = payment.gateway.get_verify_handler()
 
-        is_paid, ref_id = request_handler(merchant_id=payment.gateway.auth_data, amount=payment.amount, authority=payment.authority)
-        return render(request, self.template_name, context={'is_paid': is_paid, 'ref_id': ref_id})
-
-
+        is_paid, ref_id = request_handler(
+            merchant_id=payment.gateway.auth_data,
+            amount=payment.amount,
+            authority=payment.authority,
+        )
+        return render(
+            request, self.template_name, context={"is_paid": is_paid, "ref_id": ref_id}
+        )

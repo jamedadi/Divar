@@ -7,21 +7,34 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Package',
+            name="Package",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=48, verbose_name='package title')),
-                ('price', models.PositiveBigIntegerField(verbose_name='package price')),
-                ('description', models.TextField(blank=True, verbose_name='package description')),
-                ('days', models.PositiveSmallIntegerField(verbose_name='package days')),
-                ('is_enable', models.BooleanField(default=True)),
-                ('created_time', models.DateTimeField(auto_now_add=True)),
-                ('modified_time', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=48, verbose_name="package title"),
+                ),
+                ("price", models.PositiveBigIntegerField(verbose_name="package price")),
+                (
+                    "description",
+                    models.TextField(blank=True, verbose_name="package description"),
+                ),
+                ("days", models.PositiveSmallIntegerField(verbose_name="package days")),
+                ("is_enable", models.BooleanField(default=True)),
+                ("created_time", models.DateTimeField(auto_now_add=True)),
+                ("modified_time", models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

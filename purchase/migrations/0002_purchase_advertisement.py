@@ -7,14 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('advertisement', '0009_alter_advertisementimage_name'),
-        ('purchase', '0001_initial'),
+        ("advertisement", "0009_alter_advertisementimage_name"),
+        ("purchase", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='purchase',
-            name='advertisement',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='purchases', to='advertisement.advertisement'),
+            model_name="purchase",
+            name="advertisement",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="purchases",
+                to="advertisement.advertisement",
+            ),
         ),
     ]

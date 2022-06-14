@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('advertisement', '0003_advattrvalue_attribute'),
+        ("advertisement", "0003_advattrvalue_attribute"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='advertisement',
-            name='created_time',
+            model_name="advertisement",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='advertisement',
-            name='modified_time',
+            model_name="advertisement",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='image',
-            name='created_time',
+            model_name="image",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='image',
-            name='modified_time',
+            model_name="image",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

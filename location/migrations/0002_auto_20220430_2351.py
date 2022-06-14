@@ -6,48 +6,48 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('location', '0001_initial'),
+        ("location", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='city',
-            name='created_time',
+            model_name="city",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='city',
-            name='modified_time',
+            model_name="city",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='district',
-            name='created_time',
+            model_name="district",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='district',
-            name='modified_time',
+            model_name="district",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='location',
-            name='created_time',
+            model_name="location",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='location',
-            name='modified_time',
+            model_name="location",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='province',
-            name='created_time',
+            model_name="province",
+            name="created_time",
             field=models.DateTimeField(auto_now_add=True, null=True),
         ),
         migrations.AddField(
-            model_name='province',
-            name='modified_time',
+            model_name="province",
+            name="modified_time",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

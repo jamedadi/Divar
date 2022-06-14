@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('category', '0005_alter_category_parent'),
+        ("category", "0005_alter_category_parent"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='category',
-            name='slug',
-            field=models.SlugField(allow_unicode=True, blank=True, max_length=200, null=True),
+            model_name="category",
+            name="slug",
+            field=models.SlugField(
+                allow_unicode=True, blank=True, max_length=200, null=True
+            ),
         ),
     ]

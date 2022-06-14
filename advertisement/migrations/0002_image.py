@@ -8,16 +8,41 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('advertisement', '0001_initial'),
+        ("advertisement", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Image',
+            name="Image",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image_file', models.FileField(upload_to='images/advertisement', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))])),
-                ('advertisement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='advertisement.advertisement')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "image_file",
+                    models.FileField(
+                        upload_to="images/advertisement",
+                        validators=[
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=("jpg", "png", "jpeg")
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "advertisement",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="images",
+                        to="advertisement.advertisement",
+                    ),
+                ),
             ],
         ),
     ]

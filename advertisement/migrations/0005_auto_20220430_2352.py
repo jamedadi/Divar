@@ -9,20 +9,25 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('advertisement', '0004_auto_20220430_2351'),
+        ("advertisement", "0004_auto_20220430_2351"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='advertisement',
-            name='created_time',
-            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime(2022, 4, 30, 23, 51, 37, 904633, tzinfo=utc)),
+            model_name="advertisement",
+            name="created_time",
+            field=models.DateTimeField(
+                auto_now_add=True,
+                default=datetime.datetime(2022, 4, 30, 23, 51, 37, 904633, tzinfo=utc),
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='image',
-            name='created_time',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="image",
+            name="created_time",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]
