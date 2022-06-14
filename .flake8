@@ -2,4 +2,4 @@
 ignore = W291
 exclude = .git,__pycache__,docs/source/conf.py,old,build,dist,migrations
 max-complexity = 10
-max-line-length = 130
+max-line-length = 120

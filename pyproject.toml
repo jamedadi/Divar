@@ -1,0 +1,15 @@
+[tool.black]
+max-line-length = 120
+target-version = ['py39', 'py310']
+#include = '\.pyi?$'
+extend-exclude = '''
+^/.*/migrations
+^/.*/.ipynb_checkpoints
+^/divar/settings
+^/src
+^/venv
+^/env
+^/.venv
+^/.env
+'''
+extend-ignore = ["E203", "E501"]
