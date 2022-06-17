@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, FormView, UpdateView
 
-
 from account.forms import EditProfileForm, RegisterAccountForm, LoginAccountForm
 from account.models import User
 from lib.username import generate_random_string
@@ -67,5 +66,3 @@ class LoginUserView(FormView):
     def form_valid(self, form):
         login(self.request, form.cleaned_data['user'])
         return super().form_valid(form)
-
-

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('advertisement', '0002_image'),
     ]
@@ -23,8 +22,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('value', models.CharField(max_length=50)),
-                ('advertisement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attributes', to='advertisement.advertisement')),
-                ('attribute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attributes', to='advertisement.attribute')),
+                ('advertisement',
+                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attributes',
+                                   to='advertisement.advertisement')),
+                ('attribute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='attributes',
+                                                to='advertisement.attribute')),
             ],
         ),
     ]

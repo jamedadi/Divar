@@ -6,7 +6,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('financial', '0002_auto_20220606_0301'),
     ]
@@ -15,11 +14,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='payment',
             name='gateway',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='payments', to='financial.gateway', verbose_name='gateway'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='payments',
+                                    to='financial.gateway', verbose_name='gateway'),
         ),
         migrations.AlterField(
             model_name='payment',
             name='invoice_number',
-            field=models.UUIDField(default=uuid.UUID('3f528369-3002-4dfb-8749-6a84eb210d87'), verbose_name='invoice number'),
+            field=models.UUIDField(default=uuid.UUID('3f528369-3002-4dfb-8749-6a84eb210d87'),
+                                   verbose_name='invoice number'),
         ),
     ]

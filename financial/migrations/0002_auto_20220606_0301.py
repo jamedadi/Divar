@@ -6,7 +6,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('financial', '0001_initial'),
     ]
@@ -37,6 +36,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='payment',
             name='invoice_number',
-            field=models.UUIDField(default=uuid.UUID('35c420f0-66c6-4803-b0c2-bfcf0c678a43'), verbose_name='invoice number'),
+            field=models.UUIDField(default=uuid.UUID('35c420f0-66c6-4803-b0c2-bfcf0c678a43'),
+                                   verbose_name='invoice number'),
         ),
     ]

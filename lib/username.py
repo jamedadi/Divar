@@ -8,4 +8,3 @@ def generate_random_string():
     """
     username = secrets.token_urlsafe(math.floor(32 / 1.3))
     return username
-
