@@ -25,7 +25,7 @@ class Advertisement(BaseModel):
 
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"
-    
+
     class Meta:
         verbose_name = 'Advertisement'
         verbose_name_plural = "Advertisements"
@@ -64,8 +64,8 @@ class AdvertisementImage(BaseModel):
     name = models.CharField(max_length=50)
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
     image_file = models.FileField(
-            upload_to='images/advertisement/',
-            validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
+        upload_to='images/advertisement/',
+        validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
     )
 
 
@@ -80,5 +80,3 @@ class AdvAttrValue(models.Model):
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='attributes')
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='attributes')
     value = models.CharField(max_length=50)
-
-

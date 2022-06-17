@@ -25,7 +25,7 @@ class PostAdvertisementView(FormView):
         form.save(user)
         return super().form_valid(form)
 
-      
+
 class AdvertisementDetailView(DetailView):
     """
     Get advertisement detail from Advertisement model
@@ -37,6 +37,7 @@ class AdvertisementDetailView(DetailView):
         advertisement = Advertisement.objects.get(pk=kwargs['pk'])
         packages = Package.objects.filter(is_enable=True)
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
+
 
 class AdvertisementCityListView(ListView):
     """
@@ -79,4 +80,3 @@ class AdvertisementCityCategoryListView(ListView):
         context['city'] = self.request.path_info.split('/')[3]
         context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
         return context
-

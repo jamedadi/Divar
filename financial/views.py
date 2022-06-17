@@ -52,7 +52,6 @@ class PaymentVerifyView(LoginRequiredMixin, View):
 
         request_handler = payment.gateway.get_verify_handler()
 
-        is_paid, ref_id = request_handler(merchant_id=payment.gateway.auth_data, amount=payment.amount, authority=payment.authority)
+        is_paid, ref_id = request_handler(merchant_id=payment.gateway.auth_data, amount=payment.amount,
+                                          authority=payment.authority)
         return render(request, self.template_name, context={'is_paid': is_paid, 'ref_id': ref_id})
-
-
