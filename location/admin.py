@@ -17,12 +17,6 @@ class CityAdmin(admin.ModelAdmin):
     pass
 
 
-
 @admin.register(District)
 class DistinctAdmin(admin.ModelAdmin):
     pass
-
-
-
-
-
