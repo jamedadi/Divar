@@ -62,6 +62,10 @@ class Payment(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._b_is_paid = self.is_paid
+        
     class Meta:
         verbose_name = _('Payment')
         verbose_name_plural = _('Payments')
