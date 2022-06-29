@@ -14,22 +14,23 @@
     {% for cat in categories %}
 
         <ul>
+
             {% if cat.parent is None %}
+
                 {% if city is None %}
-                <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
-                    {% else %}
                     <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
-
+                {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
                 {% endif %}
+                
                 {% for child in cat.children.all %}
-                <ul>
-                    {% if city is None %}
-                <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
-                    {% else %}
-                    <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
-
-                {% endif %}
-                </ul>
+                    <ul>
+                        {% if city is None %}
+                            <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                        {% else %}
+                            <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                        {% endif %}
+                    </ul>
                 {% endfor %}
 
             {% endif %}
