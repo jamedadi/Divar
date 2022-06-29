@@ -14,9 +14,7 @@ class PostAdvertisementView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        """
-        Get User from request
-        """
+        # get user from request
         user = self.request.user
         form.cleaned_data['images'] = self.request.FILES.getlist('files')
         form.save(user)
