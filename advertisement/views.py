@@ -46,9 +46,24 @@ class AdvertisementCityListView(ListView):
         return context
 
 
-class AdvertisementCityCategoryListView(ListView):
-    model = Advertisement
-    template_name = 'advertisement/advertisement_list.html'
+class AdvertisementCityCategoryListView(View):
+    # model = Advertisement
+    # template_name = 'advertisement/advertisement_list.html'
+    #
+
+    def get(self, request, *args, **kargs):
+        # city = self.request.COOKIES.get('city')
+        city = self.kwargs.get('city')
+        category = self.kwargs.get('category')
+        queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
+        filter = AdvertisementFilter(self.request.GET, queryset=queryset)
+        return render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
+
+    def post(self, request, *args, **kwargs):
+        form = self.request.AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
+        if form.is_valid():
+            return render(request, 'advertisement/advertisement_list.html', context={'filter': filter.qs})
+
 
     def get_queryset(self):
         city = self.kwargs.get('city')
