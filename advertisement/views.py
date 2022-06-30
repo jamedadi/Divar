@@ -56,7 +56,7 @@ class AdvertisementCityCategoryListView(View):
         return render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
 
     def post(self, request, *args, **kwargs):
-        form = self.request.AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
+        form = self.request.AdvertisementFilter(self.request.GET)
         if form.is_valid():
-            return render(request, 'advertisement/advertisement_list.html', context={'filter': filter.qs})
+            return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
 
