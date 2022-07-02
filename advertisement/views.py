@@ -34,7 +34,6 @@ class AdvertisementCityListView(View):
 
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
-
         queryset = Advertisement.objects.filter(location__city__slug=city)
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
         response = render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
