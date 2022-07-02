@@ -34,9 +34,13 @@ class AdvertisementCityListView(View):
 
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
+
         queryset = Advertisement.objects.filter(location__city__slug=city)
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        return render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
+        response = render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
+        if 'city' not in request.COOKIES:
+            response.set_cookie('city', city)
+        return response
 
     def post(self, request, *args, **kwargs):
         form = self.request.AdvertisementFilter(self.request.GET)
