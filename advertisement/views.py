@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import FormView, DetailView, ListView
+from django.views.generic import FormView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
@@ -30,21 +30,18 @@ class AdvertisementDetailView(View):
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
 
-class AdvertisementCityListView(ListView):
-    model = Advertisement
-    template_name = 'advertisement/advertisement_list.html'
+class AdvertisementCityListView(View):
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
         queryset = Advertisement.objects.filter(location__city__slug=city)
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        return filter.qs
+        return render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['city'] = self.request.path_info.split('/')[3]
-        context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    def post(self, request, *args, **kwargs):
+        form = self.request.AdvertisementFilter(self.request.GET)
+        if form.is_valid():
+            return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
 
 
 class AdvertisementCityCategoryListView(View):
