@@ -29,6 +29,7 @@ class AdvertisementDetailView(View):
         packages = Package.objects.filter(is_enable=True)
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
+
 class AdvertisementCityListView(ListView):
     model = Advertisement
     template_name = 'advertisement/advertisement_list.html'
