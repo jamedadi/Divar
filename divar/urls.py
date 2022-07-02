@@ -18,10 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from location.views import CitiesListView
+
 urlpatterns = [
+    # Home Page
+    path('', CitiesListView.as_view(),),
+
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
-    path('advertisement/', include('advertisement.urls')),
+    path('s/', include('advertisement.urls')),
     path('financial/', include('financial.urls')),
     path('package/', include('package.urls')),
     path('purchase/', include('purchase.urls')),
