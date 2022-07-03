@@ -10,6 +10,9 @@ from .filters import AdvertisementFilter
 
 
 class PostAdvertisementView(FormView):
+    """
+    Get form from PostAdvertisementForm
+    """
     template_name = 'advertisement/post_advertisement.html'
     form_class = PostAdvertisementForm
     success_url = '/'
@@ -22,7 +25,11 @@ class PostAdvertisementView(FormView):
         return super().form_valid(form)
 
 
-class AdvertisementDetailView(View):
+class AdvertisementDetailView(DetailView):
+    """
+    Get advertisement detail from Advertisement model
+    """
+    model = Advertisement
     template_name = 'advertisement/advertisement_detail.html'
 
     def get(self, request, *args, **kwargs):
@@ -46,13 +53,11 @@ class AdvertisementCityListView(View):
             response.set_cookie('city', city)
         return response
 
-    def post(self, request, *args, **kwargs):
-        form = self.request.AdvertisementFilter(self.request.GET)
-        if form.is_valid():
-            return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
 
-
-class AdvertisementCityCategoryListView(View):
+class AdvertisementCityCategoryListView(ListView):
+    """
+    Get advertisement by cities and categories from Advertisement model
+    """
 
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
@@ -69,4 +74,5 @@ class AdvertisementCityCategoryListView(View):
         form = self.request.AdvertisementFilter(self.request.GET)
         if form.is_valid():
             return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
+
 

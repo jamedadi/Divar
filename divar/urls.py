@@ -32,5 +32,3 @@ urlpatterns = [
     path('package/', include('package.urls')),
     path('purchase/', include('purchase.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-

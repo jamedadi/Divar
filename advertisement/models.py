@@ -7,12 +7,13 @@ from lib.base_model import BaseModel
 from lib.username import generate_random_string
 from location.models import Location
 
+# To get user from settings
 User = get_user_model()
 
 
 class Advertisement(BaseModel):
     """
-    This class represents Advertisement model
+    This class represents Advertisement model.
     Each user can one or more advertisement to publish
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
@@ -24,7 +25,7 @@ class Advertisement(BaseModel):
 
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"
-    
+
     class Meta:
         verbose_name = 'Advertisement'
         verbose_name_plural = "Advertisements"
@@ -50,9 +51,9 @@ class Advertisement(BaseModel):
 
     @classmethod
     def is_belong_user(cls, user, advertisement_pk):
+        """To check this advertisement posted by this user or not"""
         advertisement = cls.objects.get(pk=advertisement_pk)
         return user == advertisement.user
-
 
 
 class AdvertisementImage(BaseModel):
@@ -63,8 +64,8 @@ class AdvertisementImage(BaseModel):
     name = models.CharField(max_length=50)
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
     image_file = models.FileField(
-            upload_to='images/advertisement/',
-            validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
+        upload_to='images/advertisement/',
+        validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
     )
 
 
@@ -73,8 +74,9 @@ class Attribute(models.Model):
 
 
 class AdvAttrValue(models.Model):
+    """
+    Each advertisement has one or many attributes. This model handling it.
+    """
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='attributes')
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='attributes')
     value = models.CharField(max_length=50)
-
-

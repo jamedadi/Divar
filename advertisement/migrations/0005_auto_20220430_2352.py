@@ -7,7 +7,6 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('advertisement', '0004_auto_20220430_2351'),
     ]
@@ -16,7 +15,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='advertisement',
             name='created_time',
-            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime(2022, 4, 30, 23, 51, 37, 904633, tzinfo=utc)),
+            field=models.DateTimeField(auto_now_add=True,
+                                       default=datetime.datetime(2022, 4, 30, 23, 51, 37, 904633, tzinfo=utc)),
             preserve_default=False,
         ),
         migrations.AlterField(

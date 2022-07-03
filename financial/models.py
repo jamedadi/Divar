@@ -11,7 +11,6 @@ user = get_user_model()
 
 
 class Gateway(models.Model):
-
     FUNCTION_ZARINPAL = 'zarinpal'
 
     GATEWAY_FUNCTION = (
@@ -49,19 +48,23 @@ class Gateway(models.Model):
 
 
 class Payment(models.Model):
-
     invoice_number = models.UUIDField(max_length=150, verbose_name=_('invoice number'), default=uuid.uuid4())
     amount = models.IntegerField(verbose_name=_('amount'))
     gateway = models.ForeignKey(
-        Gateway,related_name='payments', verbose_name=_('gateway'), on_delete=models.CASCADE, null=True
+        Gateway, related_name='payments', verbose_name=_('gateway'), on_delete=models.CASCADE, null=True
     )
     is_paid = models.BooleanField(verbose_name=_('is paid'), default=False)
     payment_log = models.TextField(verbose_name=_('log'), blank=True)
-    user = models.ForeignKey(user, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(user, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL,
+                             null=True)
     authority = models.CharField(max_length=64, verbose_name=_('authority'), blank=True)
 
     created_time = models.DateTimeField(auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._b_is_paid = self.is_paid
 
     class Meta:
         verbose_name = _('Payment')

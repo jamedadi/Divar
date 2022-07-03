@@ -18,4 +18,3 @@ class PackageView(LoginRequiredMixin, View):
         package = Package.objects.get(pk=package_pk)
         advertisement = Advertisement.objects.get(pk=advertisement_pk)
         return render(request, self.template_name, {'package': package, 'advertisement': advertisement})
-
