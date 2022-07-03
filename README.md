@@ -1,6 +1,14 @@
 # Divar
-![](.README_images/bb0a8eec.png)
-A minimal clone of Divar. Divar is the largest Persian marketplace where you can sell and buy things. (Like craigslist)
+**A minimal clone of Divar. Divar is the largest Persian marketplace where you can sell and buy things. (Like craigslist)**
+
+<p align="center">
+  <img 
+    width="400"
+    height="400"
+    src=".README_images/a4e3ee4b.png"
+  >
+</p>
+
 
 
 
