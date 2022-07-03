@@ -4,6 +4,7 @@ from django.views.generic import FormView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
+from category.models import Category
 from package.models import Package
 from .filters import AdvertisementFilter
 
@@ -36,7 +37,11 @@ class AdvertisementCityListView(View):
         city = self.kwargs.get('city')
         queryset = Advertisement.objects.filter(location__city__slug=city)
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        response = render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
+        categories = Category.objects.all()
+        response = render(
+            request, 'advertisement/advertisement_list.html',
+            context={'filter': filter, 'categories': categories, 'city': city}
+        )
         if 'city' not in request.COOKIES:
             response.set_cookie('city', city)
         return response
@@ -53,8 +58,12 @@ class AdvertisementCityCategoryListView(View):
         city = self.kwargs.get('city')
         category = self.kwargs.get('category')
         queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
+        categories = Category.objects.all()
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        return render(request, 'advertisement/advertisement_list.html', context={'filter': filter})
+        return render(
+            request, 'advertisement/advertisement_list.html',
+            context={'filter': filter, 'categories': categories, 'city': city}
+        )
 
     def post(self, request, *args, **kwargs):
         form = self.request.AdvertisementFilter(self.request.GET)
