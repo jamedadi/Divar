@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
@@ -54,7 +54,7 @@ class AdvertisementCityListView(View):
         return response
 
 
-class AdvertisementCityCategoryListView(ListView):
+class AdvertisementCityCategoryListView(View):
     """
     Get advertisement by cities and categories from Advertisement model
     """
