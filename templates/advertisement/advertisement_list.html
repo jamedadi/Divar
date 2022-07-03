@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{#{% extends 'base.html' %}#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +6,47 @@
     <title>Title</title>
 </head>
 <body>
+<h1>hi</h1>
 
-{% block content %}
+    <!-- Categories -->
+        {% for cat in categories %}
+
+        <ul>
+
+            {% if cat.parent is None %}
+
+                {% if city is None %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
+                {% else %}
+                    <li><a href="{% url 'advertisement-list-city-category' city=city category=cat.slug %}"> {{ cat.name }} </a></li>
+                {% endif %}
+
+                {% for child in cat.children.all %}
+                    <ul>
+                        {% if city is None %}
+                            <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                        {% else %}
+                            <li><a href="{% url 'advertisement-list-city-category' city=city category=child.slug %}"> {{ child.name }} </a></li>
+                        {% endif %}
+                    </ul>
+                {% endfor %}
+
+            {% endif %}
+
+        </ul>
+    {% endfor %}
 
 
-    {% for adv in object_list %}
+    <!-- Search bar -->
+    <p style="font-weight: bold">Search</p>
+    <form method="get">
+        {{ filter.form.as_p }}
+    <input type="submit">
+    </form>
+    <p></p>
+
+    <!-- Advertisements -->
+    {% for adv in filter.qs.all %}
 
         <div>
             <h3><a href="{{ adv.get_absolute_url }}">{{ adv.title }}</a></h3>
@@ -19,7 +55,6 @@
         <img src="{{ adv.images.first.image_file.url }}">
     {% endfor %}
 
-{% endblock %}
 
 
 </body>

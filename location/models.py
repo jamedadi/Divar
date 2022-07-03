@@ -1,5 +1,6 @@
 from django.db import models
 
+
 from lib.base_model import BaseModel
 
 
@@ -27,6 +28,9 @@ class City(BaseModel):
         verbose_name = "City"
         verbose_name_plural = "Cities"
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('advertisement-list', args=[self.name])
 
 class District(BaseModel):
     name = models.CharField(max_length=50)

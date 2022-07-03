@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import FormView, DetailView, ListView
+from django.views.generic import FormView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
+from category.models import Category
 from package.models import Package
 from .filters import AdvertisementFilter
 
@@ -17,9 +18,7 @@ class PostAdvertisementView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        """
-        Get User from request
-        """
+        # get user from request
         user = self.request.user
         form.cleaned_data['images'] = self.request.FILES.getlist('files')
         form.save(user)
@@ -39,44 +38,41 @@ class AdvertisementDetailView(DetailView):
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
 
-class AdvertisementCityListView(ListView):
-    """
-    Get advertisement by cities from Advertisement model
-    """
-    model = Advertisement
-    template_name = 'advertisement/advertisement_list.html'
+class AdvertisementCityListView(View):
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
         queryset = Advertisement.objects.filter(location__city__slug=city)
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        return filter.qs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # parse url to get city
-        context['city'] = self.request.path_info.split('/')[3]
-        context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+        categories = Category.objects.all()
+        response = render(
+            request, 'advertisement/advertisement_list.html',
+            context={'filter': filter, 'categories': categories, 'city': city}
+        )
+        if 'city' not in request.COOKIES:
+            response.set_cookie('city', city)
+        return response
 
 
 class AdvertisementCityCategoryListView(ListView):
     """
     Get advertisement by cities and categories from Advertisement model
     """
-    model = Advertisement
-    template_name = 'advertisement/advertisement_list.html'
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
         category = self.kwargs.get('category')
         queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
+        categories = Category.objects.all()
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        return filter.qs
+        return render(
+            request, 'advertisement/advertisement_list.html',
+            context={'filter': filter, 'categories': categories, 'city': city}
+        )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # parse url to get city
-        context['city'] = self.request.path_info.split('/')[3]
-        context['filter'] = AdvertisementFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    def post(self, request, *args, **kwargs):
+        form = self.request.AdvertisementFilter(self.request.GET)
+        if form.is_valid():
+            return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
+
+
