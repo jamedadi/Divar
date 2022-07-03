@@ -11,7 +11,7 @@ from .filters import AdvertisementFilter
 
 class PostAdvertisementView(FormView):
     """
-    Get form from PostAdvertisementForm
+    Get form from PostAdvertisementForm 📢
     """
     template_name = 'advertisement/post_advertisement.html'
     form_class = PostAdvertisementForm
@@ -39,7 +39,7 @@ class AdvertisementDetailView(DetailView):
 
 
 class AdvertisementCityListView(View):
-
+    """ Handle list of advertisements by specific city 🏙 """
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
         queryset = Advertisement.objects.filter(location__city__slug=city)
@@ -56,7 +56,7 @@ class AdvertisementCityListView(View):
 
 class AdvertisementCityCategoryListView(View):
     """
-    Get advertisement by cities and categories from Advertisement model
+    Get advertisement by cities 🏙 and categories 🔠 from Advertisement model
     """
 
     def get(self, request, *args, **kwargs):

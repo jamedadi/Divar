@@ -14,7 +14,7 @@ User = get_user_model()
 class Advertisement(BaseModel):
     """
     This class represents Advertisement model.
-    Each user can one or more advertisement to publish
+    Each user can one or more advertisement to publish 📢
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
     title = models.CharField(max_length=50)
@@ -33,7 +33,7 @@ class Advertisement(BaseModel):
     @classmethod
     def add(cls, user, title, description, price, location, category, images):
         """
-        Get data an Advertisement and Save it in Database
+        Get data an Advertisement and Save it in Database 💾
         """
         adv = cls.objects.create(user=user,
                                  title=title,
@@ -59,7 +59,7 @@ class Advertisement(BaseModel):
 class AdvertisementImage(BaseModel):
     """
     This class represents Image model.
-    Each advertisement has one or many images.
+    Each advertisement has one or many images. 🖼
     """
     name = models.CharField(max_length=50)
     advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
