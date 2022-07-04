@@ -156,3 +156,11 @@ ZARINPAL = {
     'callback_request_url': 'http://127.0.0.1:8000/finance/verify',
     'merchant_id': 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
 }
+
+# Cache 🔂 Configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

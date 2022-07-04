@@ -1,8 +1,16 @@
 asgiref==3.5.1
+autopep8==1.6.0
 Django==3.2
 django-filter==21.1
+flake8==4.0.1
+mccabe==0.6.1
 Pillow==9.1.0
 psycopg2-binary==2.9.3
+pycodestyle==2.8.0
+pyflakes==2.4.0
+pymemcache==3.5.0
 pytz==2022.1
+six==1.16.0
 sqlparse==0.4.2
 suds-jurko==0.6
+toml==0.10.2
