@@ -11,6 +11,7 @@ user = get_user_model()
 
 
 class Gateway(models.Model):
+    """ 💳 """
     FUNCTION_ZARINPAL = 'zarinpal'
 
     GATEWAY_FUNCTION = (
@@ -48,6 +49,7 @@ class Gateway(models.Model):
 
 
 class Payment(models.Model):
+    """ 💸 """
     invoice_number = models.UUIDField(max_length=150, verbose_name=_('invoice number'), default=uuid.uuid4())
     amount = models.IntegerField(verbose_name=_('amount'))
     gateway = models.ForeignKey(

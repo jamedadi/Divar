@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Package(models.Model):
+    """ 📦 """
     title = models.CharField(max_length=48, verbose_name=_('package title'))
     price = models.PositiveBigIntegerField(verbose_name=_('package price'))
     description = models.TextField(blank=True, verbose_name=_('package description'))

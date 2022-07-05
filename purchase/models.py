@@ -9,6 +9,7 @@ user = get_user_model()
 
 
 class Purchase(models.Model):
+    """ 💰 """
     PAID = 10
     NOT_PAID = -10
     STATUS_CHOICES = (
@@ -30,10 +31,12 @@ class Purchase(models.Model):
 
     @staticmethod
     def create_payment(package, user):
+        """ 💾 """
         return Payment.objects.create(amount=package.price, user=user)
 
     @classmethod
     def create(cls, package, advertisement, user):
+        """ 💾 """
         if package.is_enable:
             with transaction.atomic():
                 payment = cls.create_payment(package=package, user=user)

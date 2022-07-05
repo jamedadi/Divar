@@ -10,9 +10,11 @@ from purchase.models import Purchase
 
 
 class PackageView(LoginRequiredMixin, View):
+    """ It shown list of packages 📦 🗳 🎁 """
     template_name = 'package/package_advertisement.html'
 
     def get(self, request, package_pk, advertisement_pk):
+        """ 📤 """
         if not Advertisement.is_belong_user(request.user, advertisement_pk):
             raise Http404
         package = Package.objects.get(pk=package_pk)
