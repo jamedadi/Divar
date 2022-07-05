@@ -17,6 +17,7 @@ class Province(BaseModel):
 
 
 class City(BaseModel):
+    """ 🏙 """
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, allow_unicode='True', unique=True, blank=True)
     state = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE)
@@ -47,7 +48,7 @@ class District(BaseModel):
 
 class Location(BaseModel):
     """
-    This model represents location of published advertisement by User
+    This model represents location 🚩 of published advertisement by User
     """
     province = models.ForeignKey(Province, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)

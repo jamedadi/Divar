@@ -7,7 +7,7 @@ from financial.models import Payment
 @receiver(post_save, sender=Payment)
 def callback(sender, instance, created, **kwargs):
     """
-    Signal to update the status of the purchase after payment is made
+    Signal to update the status 🚦 of the purchase 💰 after payment 💸 is made
     """
     if instance.is_paid and not instance._b_is_paid:
         if instance.purchases.exists():
@@ -19,6 +19,6 @@ def callback(sender, instance, created, **kwargs):
 @receiver(post_init, sender=Payment)
 def store_is_paid_status(sender, instance, **kwargs):
     """
-    Signal to store the status of the purchase before payment is made
+    Signal to store the status 🚦 of the purchase 💰 before payment 💸 is made
     """
     instance._b_is_paid = instance.is_paid

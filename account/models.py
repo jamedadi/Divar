@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """👨 👧"""
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
         _('username'),

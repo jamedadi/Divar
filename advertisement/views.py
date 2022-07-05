@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import FormView
+from django.views.decorators.cache import cache_page
+from django.views.generic import FormView, DetailView
 
 from advertisement.forms import PostAdvertisementForm
 from advertisement.models import Advertisement
@@ -10,9 +12,8 @@ from .filters import AdvertisementFilter
 
 
 class PostAdvertisementView(FormView):
-    """
-    Get form from PostAdvertisementForm
-    """
+    """ Get form from PostAdvertisementForm 📢"""
+
     template_name = 'advertisement/post_advertisement.html'
     form_class = PostAdvertisementForm
     success_url = '/'
@@ -26,9 +27,8 @@ class PostAdvertisementView(FormView):
 
 
 class AdvertisementDetailView(DetailView):
-    """
-    Get advertisement detail from Advertisement model
-    """
+    """ Get advertisement detail from Advertisement model """
+
     model = Advertisement
     template_name = 'advertisement/advertisement_detail.html'
 
@@ -39,6 +39,7 @@ class AdvertisementDetailView(DetailView):
 
 
 class AdvertisementCityListView(View):
+    """ Handle list of advertisements by specific city 🏙 """
 
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
@@ -54,9 +55,9 @@ class AdvertisementCityListView(View):
         return response
 
 
-class AdvertisementCityCategoryListView(ListView):
+class AdvertisementCityCategoryListView(View):
     """
-    Get advertisement by cities and categories from Advertisement model
+    Get advertisement by cities 🏙 and categories 🔠 from Advertisement model
     """
 
     def get(self, request, *args, **kwargs):
@@ -76,3 +77,14 @@ class AdvertisementCityCategoryListView(ListView):
             return render(request, 'advertisement/advertisement_list.html', context={'filter': form.qs})
 
 
+# A decorator that caches 🔂 the page for 3 minutes.
+@method_decorator(cache_page(60 * 3), name='dispatch')
+class AdvertisementTehranListView(AdvertisementCityListView):
+    """
+    This view inherited from AdvertisementCityListView to cache 🔂 Advertisements in "Tehran" City.
+    "Tehran" is capital of IRAN 🇮🇷 and it has so many request per seconds ⏳ . This is why we have to cache 🔂 this View
+    """
+
+    def get(self, request, *args, **kwargs):
+        self.kwargs['city'] = 'tehran'
+        return super().get(request, *args, **kwargs)
