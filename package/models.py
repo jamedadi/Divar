@@ -15,3 +15,7 @@ class Package(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = _('package')
+        verbose_name_plural = _('packages')
+

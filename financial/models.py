@@ -2,10 +2,10 @@ import uuid
 
 from django.contrib.auth import get_user_model
 from django.db import models
-
 from django.utils.translation import ugettext_lazy as _
 
 from financial.utils.zarinpal import zarinpal_request_handler, zarinpal_payment_checker
+
 
 user = get_user_model()
 
@@ -29,8 +29,8 @@ class Gateway(models.Model):
     modified_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = _('Gateway')
-        verbose_name_plural = _('Gateways')
+        verbose_name = _('gateway')
+        verbose_name_plural = _('gateways')
 
     def __str__(self):
         return self.title
@@ -64,8 +64,8 @@ class Payment(models.Model):
     modified_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = _('Payment')
-        verbose_name_plural = _('Payments')
+        verbose_name = _('payment')
+        verbose_name_plural = _('payments')
 
     def __str__(self):
         return self.invoice_number.hex
