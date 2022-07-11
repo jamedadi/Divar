@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 
 from category.models import Category
 from lib.base_model import BaseModel
@@ -16,19 +18,23 @@ class Advertisement(BaseModel):
     This class represents Advertisement model.
     Each user can one or more advertisement to publish 📢
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='advertisements')
-    title = models.CharField(max_length=50)
-    description = models.TextField(blank=True)
-    price = models.PositiveIntegerField(default=0)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='advertisements')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="advertisements")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements',)
+    title = models.CharField(max_length=50, verbose_name=_('title'))
+    description = models.TextField(blank=True, verbose_name=_('description'))
+    price = models.PositiveIntegerField(default=0, verbose_name=_('description'))
+    location = models.ForeignKey(
+        Location, on_delete=models.CASCADE, related_name='advertisements', verbose_name=_('location')
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="advertisements", verbose_name=_('category')
+    )
 
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"
 
     class Meta:
-        verbose_name = 'Advertisement'
-        verbose_name_plural = "Advertisements"
+        verbose_name = _('advertisement')
+        verbose_name_plural = _("advertisements")
 
     @classmethod
     def add(cls, user, title, description, price, location, category, images):
@@ -61,22 +67,27 @@ class AdvertisementImage(BaseModel):
     This class represents Image model.
     Each advertisement has one or many images. 🖼
     """
-    name = models.CharField(max_length=50)
-    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='images')
-    image_file = models.FileField(
-        upload_to='images/advertisement/',
-        validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))]
+    name = models.CharField(max_length=50, verbose_name=_('name'))
+    advertisement = models.ForeignKey(
+        Advertisement, on_delete=models.CASCADE, related_name='images', verbose_name=_('advertisement')
     )
+    image_file = models.FileField(
+            upload_to='images/advertisement/',
+            validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))],
+            verbose_name=_('images')
+            )
+
 
 
 class Attribute(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, verbose_name=_('attribute'))
 
 
 class AdvAttrValue(models.Model):
-    """
-    Each advertisement has one or many attributes. This model handling it.
-    """
-    advertisement = models.ForeignKey(Advertisement, on_delete=models.CASCADE, related_name='attributes')
-    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='attributes')
-    value = models.CharField(max_length=50)
+    advertisement = models.ForeignKey(
+        Advertisement, on_delete=models.CASCADE, related_name='attributes', verbose_name=_('advertisement')
+    )
+    attribute = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, related_name='attributes', verbose_name=_('attribute')
+    )
+    value = models.CharField(max_length=50, verbose_name=_('value'))
