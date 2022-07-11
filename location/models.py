@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+
 from lib.base_model import BaseModel
 
 
@@ -21,6 +22,7 @@ class City(BaseModel):
     slug = models.SlugField(max_length=50, allow_unicode='True', unique=True, blank=True, verbose_name=_('slug'))
     state = models.ForeignKey(Province, related_name='cities', on_delete=models.CASCADE, verbose_name=_('state'))
 
+
     def __str__(self):
         return f"{self.name}"
 
@@ -28,6 +30,9 @@ class City(BaseModel):
         verbose_name = _('city')
         verbose_name_plural = _('cities')
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('advertisement-list', args=[self.name])
 
 class District(BaseModel):
     name = models.CharField(max_length=50, verbose_name=_('name'))
@@ -44,7 +49,7 @@ class District(BaseModel):
 
 class Location(BaseModel):
     """
-    This model represents location of published advertisement by User
+    This model represents location 🚩 of published advertisement by User
     """
     province = models.ForeignKey(Province, on_delete=models.CASCADE, related_name=_('province'))
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name=_('city'))

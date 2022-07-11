@@ -17,7 +17,8 @@
 
         <h2>Posted Advertisements</h2>
         {% for adv in user.advertisements.all %}
-            <a href="{{ adv.get_absolute_url }}"><h3>{{ adv.title }}</a>
+            <h3>{{ adv.title }}</h3>
+            <a href="{{ adv.get_absolute_url }}"><h3>{{ adv.title }}</h3></a>
             <p>{{ adv.description }}</p>
             <p>{{ adv.location }}</p>
             <br>

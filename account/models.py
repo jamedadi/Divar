@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    """👨 👧"""
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
         _('username'),
@@ -20,7 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    email = models.EmailField(_('email address'),help_text=_('Enter a valid Email address'), blank=True)
+    email = models.EmailField(_('email address'), help_text=_('Enter a valid Email address'), blank=True)
     phone_number = models.CharField(blank=True, max_length=11)
     is_staff = models.BooleanField(
         _('staff status'),
@@ -57,4 +58,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         """Return the short name for the user."""
         return self.first_name
-

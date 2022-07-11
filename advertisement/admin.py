@@ -12,9 +12,3 @@ class AdvertisementAdmin(admin.ModelAdmin):
     inlines = [
         AdvertisementImageInline
     ]
-    # list_select_related = ('images', )
-
-#
-# @admin.register(AdvertisementImage)
-# class AdvertisementImageAdmin(admin.ModelAdmin):
-#     pass

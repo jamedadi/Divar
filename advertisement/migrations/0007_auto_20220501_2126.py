@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('advertisement', '0006_rename_profile_advertisement_user'),
     ]
@@ -18,8 +17,10 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
                 ('modified_time', models.DateTimeField(auto_now=True)),
-                ('image_file', models.FileField(upload_to='images/advertisement/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))])),
-                ('advertisement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='advertisement.advertisement')),
+                ('image_file', models.FileField(upload_to='images/advertisement/', validators=[
+                    django.core.validators.FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))])),
+                ('advertisement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images',
+                                                    to='advertisement.advertisement')),
             ],
             options={
                 'abstract': False,

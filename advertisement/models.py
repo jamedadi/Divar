@@ -9,13 +9,14 @@ from lib.base_model import BaseModel
 from lib.username import generate_random_string
 from location.models import Location
 
+# To get user from settings
 User = get_user_model()
 
 
 class Advertisement(BaseModel):
     """
-    This class represents Advertisement model
-    Each user can one or more advertisement to publish
+    This class represents Advertisement model.
+    Each user can one or more advertisement to publish 📢
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('user'), related_name='advertisements',)
     title = models.CharField(max_length=50, verbose_name=_('title'))
@@ -30,7 +31,7 @@ class Advertisement(BaseModel):
 
     def __str__(self):
         return f"{self.title} > {self.location.city.name}"
-    
+
     class Meta:
         verbose_name = _('advertisement')
         verbose_name_plural = _("advertisements")
@@ -38,7 +39,7 @@ class Advertisement(BaseModel):
     @classmethod
     def add(cls, user, title, description, price, location, category, images):
         """
-        Get data an Advertisement and Save it in Database
+        Get data an Advertisement and Save it in Database 💾
         """
         adv = cls.objects.create(user=user,
                                  title=title,
@@ -56,6 +57,7 @@ class Advertisement(BaseModel):
 
     @classmethod
     def is_belong_user(cls, user, advertisement_pk):
+        """To check this advertisement posted by this user or not"""
         advertisement = cls.objects.get(pk=advertisement_pk)
         return user == advertisement.user
 
@@ -63,7 +65,7 @@ class Advertisement(BaseModel):
 class AdvertisementImage(BaseModel):
     """
     This class represents Image model.
-    Each advertisement has one or many images.
+    Each advertisement has one or many images. 🖼
     """
     name = models.CharField(max_length=50, verbose_name=_('name'))
     advertisement = models.ForeignKey(
@@ -73,7 +75,8 @@ class AdvertisementImage(BaseModel):
             upload_to='images/advertisement/',
             validators=[FileExtensionValidator(allowed_extensions=('jpg', 'png', 'jpeg'))],
             verbose_name=_('images')
-    )
+            )
+
 
 
 class Attribute(models.Model):
@@ -88,5 +91,3 @@ class AdvAttrValue(models.Model):
         Attribute, on_delete=models.CASCADE, related_name='attributes', verbose_name=_('attribute')
     )
     value = models.CharField(max_length=50, verbose_name=_('value'))
-
-

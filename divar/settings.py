@@ -1,6 +1,7 @@
 import os
 
 from local_config import *
+
 """
 Django settings for divar project.
 
@@ -28,7 +29,6 @@ SECRET_KEY = SECRET_KEY
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -81,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'divar.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -105,7 +104,6 @@ DATABASES = {
     }
 
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,7 +137,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -158,4 +155,12 @@ ZARINPAL = {
     'gateway_request_url': 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
     'callback_request_url': 'http://127.0.0.1:8000/finance/verify',
     'merchant_id': 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
+}
+
+# Cache 🔂 Configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
 }
