@@ -22,22 +22,25 @@ pip install -r requirements.txt
 
 ## Configuration
 
-#### 1 - Create a config file with specefic name of local_config.py in root directory of the project.
 
-#### 2 - Add your local configurations in local_config.py.
+#### 2 - Add your local configurations in .env file.
 
 ```python
 SECRET_KEY = ''
 
-DB_NAME = ''
-DB_USERNAME = ''
-DB_PASSWORD = ''
+POSTGRES_DB = ''
+POSTGRES_USER = ''
+POSTGRES_PASSWORD = ''
 DB_HOST = ''
-DB_PORT = 0000
 ```
 
 ## Usage
 
+### run by docker
+```
+docker-compose up -d
+```
+### run without docker
 ```bash
 python manage.py runserver
 ```

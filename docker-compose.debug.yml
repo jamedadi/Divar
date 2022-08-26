@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  jamedadi:
+    image: jamedadi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 Divar\manage.py "]
+    ports:
+      - 5678:5678
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+    - .env
+    volumes: 
+      - divar_db:/var/lib/postgresql/data
+volumes:
+  divar_db:
+    driver: local

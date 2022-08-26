@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  jamedadi:
+    image: jamedadi
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    # command: python /app/manage.py runserver 0.0.0.0:8000 
+    ports: 
+      - 80:8000
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+    - .env
+    volumes: 
+      - divar_db:/var/lib/postgresql/data
+volumes:
+  divar_db:
+    driver: local
