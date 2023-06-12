@@ -58,7 +58,7 @@ class Advertisement(BaseModel):
     @classmethod
     def is_belong_user(cls, user, advertisement_pk):
         """To check this advertisement posted by this user or not"""
-        advertisement = cls.objects.get(pk=advertisement_pk)
+        advertisement = cls.objects.select_related('user').get(pk=advertisement_pk)
         return user == advertisement.user
 
 

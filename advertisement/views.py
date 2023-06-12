@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -5,7 +6,7 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import FormView, DetailView
 
 from advertisement.forms import PostAdvertisementForm
-from advertisement.models import Advertisement
+from advertisement.models import Advertisement, AdvertisementImage
 from category.models import Category
 from package.models import Package
 from .filters import AdvertisementFilter
@@ -33,7 +34,8 @@ class AdvertisementDetailView(DetailView):
     template_name = 'advertisement/advertisement_detail.html'
 
     def get(self, request, *args, **kwargs):
-        advertisement = Advertisement.objects.get(pk=kwargs['pk'])
+        advertisement = Advertisement.objects.select_related('user', 'location__city', 'category').prefetch_related(
+            'images').get(pk=kwargs['pk'])
         packages = Package.objects.filter(is_enable=True)
         return render(request, self.template_name, context={'advertisement': advertisement, 'packages': packages})
 
@@ -43,9 +45,10 @@ class AdvertisementCityListView(View):
 
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
-        queryset = Advertisement.objects.filter(location__city__slug=city)
+        queryset = Advertisement.objects.filter(location__city__slug=city).prefetch_related(
+            Prefetch('images', queryset=AdvertisementImage.objects.order_by('id')))
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
-        categories = Category.objects.all()
+        categories = Category.objects.all().select_related('parent').prefetch_related('children')
         response = render(
             request, 'advertisement/advertisement_list.html',
             context={'filter': filter, 'categories': categories, 'city': city}
@@ -63,8 +66,9 @@ class AdvertisementCityCategoryListView(View):
     def get(self, request, *args, **kwargs):
         city = self.kwargs.get('city')
         category = self.kwargs.get('category')
-        queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category)
-        categories = Category.objects.all()
+        queryset = Advertisement.objects.filter(location__city__slug=city, category__slug=category).prefetch_related(
+            Prefetch('images', queryset=AdvertisementImage.objects.order_by('id')))
+        categories = Category.objects.all().select_related('parent').prefetch_related('children')
         filter = AdvertisementFilter(self.request.GET, queryset=queryset)
         return render(
             request, 'advertisement/advertisement_list.html',
